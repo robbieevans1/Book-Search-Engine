@@ -40,3 +40,5 @@ const typeDefs = gql`
     user: User
   }
 `;
+
+module.exports = typeDefs
