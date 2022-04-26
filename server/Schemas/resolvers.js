@@ -1,6 +1,5 @@
+const { User } = require("../models");
 const { AuthenticationError } = require("apollo-server-express");
-const { async } = require("rxjs/internal/scheduler/async");
-const { User, Book } = require("../models");
 const { signToken } = require("../utils/auth");
 
 const resolvers = {
@@ -39,26 +38,27 @@ const resolvers = {
 				const token = signToken(user);
 				return { token, user };
 			},
-			addBook: async (parent, args, context) => {
-				if (context.user) {
-					const book = await Book.create({
-						...args,
-						username: context.user.username,
-					});
-
-					await User.findByIdAndUpdate(
-						{ _id: context.user._id },
-						{ $push: { books: book._id } },
-						{ new: true }
-					);
-
-					return book;
-				}
-
-				module.exports = resolvers;
-
-				throw new AuthenticationError("You need to be logged in!");
-			},
+			saveBook: async (parent, { body }, context) => {
+        if (context.user) {
+          const updatedUser = await User.findOneAndUpdate(
+            { _id: context.user._id },
+            { $addToSet: { savedBooks: body } },
+            { new: true }
+          );
+          return updatedUser;
+        }
+        throw new AuthenticationError("You need to be logged in!");
+      },
+      removeBook: async (parent, {body}, context => {
+        if (context.user) {
+          const updatedUser = await User.findOneAndUpdate(
+            { _id: user._id },
+            { $pull: { savedBooks: { bookId: params.bookId } } },
+            { new: true }
+          );
+          return updatedUser
+        }
+      })
 		},
 	},
 };
