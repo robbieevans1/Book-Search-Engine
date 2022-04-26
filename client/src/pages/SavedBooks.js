@@ -6,7 +6,7 @@ import {
 	Card,
 	Button,
 } from "react-bootstrap";
-
+import { REMOVE_BOOK } from "../utils/mutations";
 import Auth from "../utils/auth";
 import { removeBookId } from "../utils/localStorage";
 import { useQuery, useMutation } from "@apollo/client";
@@ -35,9 +35,6 @@ const SavedBooks = () => {
 				throw new Error("something went wrong!");
 			}
 
-			const updatedUser = await response.json();
-			setUserData(updatedUser);
-			// upon success, remove book's id from localStorage
 			removeBookId(bookId);
 		} catch (err) {
 			console.error(err);
