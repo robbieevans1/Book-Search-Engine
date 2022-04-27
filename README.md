@@ -21,13 +21,6 @@ use the command npm i in the root folder to install dependencies for the applica
 ## Usage
 Allows users to log in, browse books using the Google Books API, and save & delete books of their choosing.
 
-## Contribution
-N/A
-
-## Tests:
-### Run the following commands in your terminal to test this app:
-### N/A
-
 ## Questions
 ### if you have any questions, please don't hesitate to reach out to me at
 ### Github: https://github.com/robcabobb
